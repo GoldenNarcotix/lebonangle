@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <form class="form-signin" method="post">
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <h1 class="h3 mb-3 font-weight-normal">{% trans %}Please sign in{% endtrans %}</h1>
+        <label for="inputText" class="sr-only">{% trans %}Username{% endtrans %}</label>
+        <input type="text" value="{{ last_username }}" name="username" id="inputText" class="form-control" placeholder="{% trans %}Username{% endtrans %}" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="{% trans %}Password{% endtrans %}" required>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> {% trans %}Remember me{% endtrans %}
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+            {% trans %}Sign in{% endtrans %}
+        </button>
+    </form>
+
+{% endblock %}

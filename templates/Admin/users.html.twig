@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron-img jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">{% trans %}The Users{% endtrans %}</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col">
+                <a href="{{ path('app_add_user') }}" class="btn btn-question">{% trans %}Add User{% endtrans %}</a>
+            </div>
+        </div>
+        <div class="row">
+            {% for adminuser in adminusers %}
+            <div class="col-12">
+                <div style="box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);">
+                    <div class="q-container p-4">
+                        <div class="row">
+                            <div class="col">
+                                <a class="q-title" href="{{ path('app_show_user', {id: adminuser.id}) }}"><h2> {% trans %}Username{% endtrans%} : {{ adminuser.username }}</h2></a>
+                                <div class="q-display p-3">
+                                    <i class="fa fa-quote-left mr-3"></i>
+                                    <p class="pt-4"><strong>{% trans %}email Adress{% endtrans%} : {{ adminuser.email }}</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="answer-link" href="{{ path('app_show_user', {'id': adminuser.id}) }}" style="color: #fff;">
+                        <p class="q-display-response text-center p-3">
+                            <i class="fa fa-search magic-wand"></i> {% trans %}See Detail{% endtrans %}
+                        </p>
+                    </a>
+                </div>
+            </div>
+                {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
