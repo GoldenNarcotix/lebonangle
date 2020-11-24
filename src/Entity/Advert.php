@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AdvertRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Context;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -148,7 +149,7 @@ class Advert
         return $this->state;
     }
 
-    public function setState(string $state): self
+    public function setState(string $state, $context=[]): self
     {
         $this->state = $state;
 

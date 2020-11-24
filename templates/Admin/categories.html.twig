@@ -19,11 +19,11 @@
                         <div class="q-container p-4">
                             <div class="row">
                                 <div class="col">
-                                    <a class="q-title" href="#"><h2> {% trans %}Category Name{% endtrans%} : {{ category.name }}</h2></a>
+                                    <a class="q-title" href="{{ path('app_show_category', {id: category.id}) }}"><h2> {% trans %}Category Name{% endtrans%} : {{ category.name }}</h2></a>
                                 </div>
                             </div>
                         </div>
-                        <a class="answer-link" href="#" style="color: #fff;">
+                        <a class="answer-link" href="{{ path('app_show_category', {id: category.id}) }}" style="color: #fff;">
                             <p class="q-display-response text-center p-3">
                                 <i class="fa fa-magic magic-wand"></i> 6 answers
                             </p>

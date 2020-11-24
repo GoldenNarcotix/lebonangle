@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron-img jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">{% trans %}The Adverts{% endtrans %}</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col">
+                <a href="{{ path('app_add_adverts') }}" class="btn btn-question">{% trans %}Create an Advert{% endtrans %}</a>
+            </div>
+        </div>
+        <div class="row">
+            {% for advert in adverts %}
+                <div class="col-12">
+                    <div style="box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);">
+                        <div class="q-container p-4">
+                            <div class="row">
+                                <div class="col-2 text-center">
+                                    <img src="{{ asset('images/tisha.png') }}" width="100" height="100">
+                                    <div class="d-block mt-3 vote-arrows">
+                                        <a class="vote-up" href="#"><i class="far fa-arrow-alt-circle-up"></i></a>
+                                        <a class="vote-down" href="#"><i class="far fa-arrow-alt-circle-down"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <a class="q-title" href="#"><h2>{{ advert.title }}</h2></a>
+                                    <div class="q-display p-3">
+                                        <i class="fa fa-quote-left mr-3"></i>
+                                        <p class="d-inline">{{ advert.content }}</p>
+                                        <p class="pt-4"><strong>{{ advert.author }}</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="answer-link" href="#" style="color: #fff;">
+                            <p class="q-display-response text-center p-3">
+                                <i class="fa fa-magic magic-wand"></i> 6 answers
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

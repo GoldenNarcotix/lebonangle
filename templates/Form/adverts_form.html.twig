@@ -1,0 +1,15 @@
+{% extends'base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(advertForm) }}
+
+    {{ form_row(advertForm.title) }}
+    {{ form_row(advertForm.content) }}
+    {{ form_row(advertForm.author) }}
+    {{ form_row(advertForm.email) }}
+    {{ form_row(advertForm.price) }}
+    <button type="submit"  class="btn btn-primary">{% trans %}Submit{% endtrans %}</button>
+    {{ form_end(advertForm) }}
+
+{% endblock %}
