@@ -2,12 +2,18 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use App\Repository\AdvertRepository;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Context;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(itemOperations={"GET"})
+ * @ApiFilter(DateFilter::class, properties={"createdAt"} )
  * @ORM\Entity(repositoryClass=AdvertRepository::class)
  */
 class Advert
@@ -66,6 +72,18 @@ class Advert
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $publishedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Picture::class)
+     * @ORM\JoinColumn(nullable=true)
+     * @ApiProperty(iri="http://schema.org/image")
+     */
+    private $image;
+
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTime('now'));
+    }
 
     public function getId(): ?int
     {
@@ -176,6 +194,18 @@ class Advert
     public function setPublishedAt(?\DateTimeInterface $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    public function getImage(): ?Picture
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Picture $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

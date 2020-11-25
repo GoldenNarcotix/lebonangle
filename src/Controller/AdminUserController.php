@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminUserController extends AbstractController
 {
     /**
-     * @Route("admin/add_user", name="app_add_user")
+     * @Route("/add_user", name="app_add_user")
      */
     public function new(Request $request)
     {
@@ -60,7 +60,7 @@ class AdminUserController extends AbstractController
             ->getRepository(AdminUser::class)
             ->findOneBy(['id' => $id]);
 
-        return $this->render('Admin/user_details.html.twig',[
+        return $this->render('Admin/Details/user_details.html.twig',[
             'adminUser' => $adminUser,
         ]);
     }

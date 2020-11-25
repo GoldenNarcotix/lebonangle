@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Details: {{ advert.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="my-4">{% trans %}Advert{% endtrans %}</h2>
+            <div style="box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);">
+                <div class="q-container-show p-4">
+                    <div class="row">
+                        <div class="col-2 text-center">
+                            <img src="{{ advert.image.file}}" alt="image annonce" width="100" height="100">
+                        </div>
+                        <div class="col">
+                            <h1 class="q-title-show">{% trans %}Advert Name{% endtrans%} : {{ advert.title }}</h1>
+                            <div class="q-display p-3">
+                                <i class="fa fa-quote-left mr-3"></i>
+                                <p class="d-inline"></p>
+                                <p class="pt-4"><strong>{{ advert.content }}</strong></p>
+                                <p class="pt-4">
+                                    <strong>
+                                    </strong></p>
+                                <p class="pt-4">
+                                    <strong>
+                                        {% trans %}email Adress{% endtrans%} : {{ advert.email }}
+                                    </strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between my-4">
+        {% if workflow_can(advert, 'publish') %}
+        <a href="{{ path('app_adverts_workflow', {id: advert.id, status: 'publish'}) }}" class="btn btn-sm btn-secondary">{% trans %}Publish{% endtrans %}</a>
+        {% endif %}
+        {% if workflow_can(advert, 'reject') %}
+        <a href="{{ path('app_adverts_workflow', {id: advert.id, status: 'reject'}) }}" class="btn btn-sm btn-danger">{% trans %}Reject{% endtrans %}</a>
+        {% endif %}
+    </div>
+{% endblock %}
