@@ -1,0 +1,9 @@
+App\Entity\AdminUser:
+  admin_user_{1..100}:
+    username: <username()>
+    email: <email()>
+    plainPassword: 'test'
+  admin_youssef:
+    username: 'youssef'
+    email: 'yhammouma@gmail.com'
+    plainPassword: 'esimed'

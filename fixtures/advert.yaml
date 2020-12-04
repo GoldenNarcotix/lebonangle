@@ -1,0 +1,10 @@
+App\Entity\Advert:
+  advert_{1..50}:
+    title: <sentence()>
+    content: <text()>
+    author: <name()>
+    email: <email()>
+    category: '@category_*'
+    price: <numberBetween(1.00, 1000000.00)>
+    state: <randomElement(['draft', 'published', 'rejected'], 1)>
+    createdAt: <dateTimeBetween("-200 days", "now")>

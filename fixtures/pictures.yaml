@@ -1,0 +1,5 @@
+App\Entity\Picture:
+  picture_{1..50}:
+    path: <randomElement(['admin.png', 'admin_sec.png'], 1)>
+    file: null
+    advert: '@advert_<current()>'

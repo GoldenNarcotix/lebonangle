@@ -6,14 +6,20 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\AdvertRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Context;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource(itemOperations={"GET"})
- * @ApiFilter(DateFilter::class, properties={"createdAt"} )
+ * @ApiResource(itemOperations={"get"})
+ * @ApiFilter(DateFilter::class, properties={"createdAt"})
+ * @ApiFilter(SearchFilter::class, properties={"price"})
+ * @ApiFilter(SearchFilter::class, properties={"category": "exact", "state": "exact"})
  * @ORM\Entity(repositoryClass=AdvertRepository::class)
  */
 class Advert
@@ -74,15 +80,16 @@ class Advert
     private $publishedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Picture::class)
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="advert", cascade={"remove"}, orphanRemoval=true)
      * @ApiProperty(iri="http://schema.org/image")
      */
-    private $image;
+    private Collection $pictures;
 
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime('now'));
+        $this->pictures = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -198,15 +205,19 @@ class Advert
         return $this;
     }
 
-    public function getImage(): ?Picture
+    /**
+     * @return ArrayCollection|Collection
+     */
+    public function getPictures()
     {
-        return $this->image;
+        return $this->pictures;
     }
 
-    public function setImage(?Picture $image): self
+    /**
+     * @param ArrayCollection|Collection $pictures
+     */
+    public function setPictures($pictures): void
     {
-        $this->image = $image;
-
-        return $this;
+        $this->pictures = $pictures;
     }
 }

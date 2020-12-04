@@ -1,0 +1,29 @@
+
+
+    /**
+     * @Route("/adverts/{​​​​​​​​id}​​​​​​​​/published", methods={​​​​​​​​"GET"}​​​​​​​​, name="admin_advert_published")
+     */
+    public function toPublish(Advert $advert, EntityManagerInterface $manager, Registry $registry): Response {​​​​​​​​
+        $advertPublishingWorkflow = $registry->get($advert);
+        $advertPublishingWorkflow->apply($advert, 'to_publish');
+        $manager->persist($advert);
+        $manager->flush();
+        return $this->redirectToRoute('admin_advert');
+    }​​​​​​​​
+    /**
+     * @Route("/adverts/{​​​​​​​​id}​​​​​​​​/rejected", methods={​​​​​​​​"GET"}​​​​​​​​, name="admin_advert_rejected")
+     */
+    public function toReject(Advert $advert, EntityManagerInterface $manager, Registry $registry): Response {​​​​​​​​
+        $advertPublishingWorkflow = $registry->get($advert);
+
+        if($advert->getState() === "published") {​​​​​​​​
+            $advertPublishingWorkflow->apply($advert, 'form_publish_to_reject');
+        }​​​​​​​​ else {​​​​​​​​
+            $advertPublishingWorkflow->apply($advert, 'to_reject');
+        }​​​​​​​​
+        $manager->persist($advert);
+        $manager->flush();
+        return $this->redirectToRoute('admin_advert');
+    }​​​​​​​​
+
+

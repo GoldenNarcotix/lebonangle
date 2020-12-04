@@ -75,8 +75,7 @@ class Picture
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Advert::class)
-     * @ORM\JoinColumn(onDelete="cascade")
+     * @ORM\ManyToOne(targetEntity=Advert::class, inversedBy="pictures")
      */
     private $advert;
 
